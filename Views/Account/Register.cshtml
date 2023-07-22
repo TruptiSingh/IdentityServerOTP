@@ -1,0 +1,153 @@
+﻿@model IdentityServer.ViewModels.Account.RegisterRequestViewModel
+
+<div class="main-header"></div>
+
+<form asp-controller="Account" asp-action="Register" method="post" class="identity-form">
+
+	<input type="hidden" asp-for="ReturnUrl" />
+
+	<h1 class="mb-3">Create Account</h1>
+
+	<div class="title-divider"></div>
+
+	<div class="form-group">
+
+		<label asp-for="FirstName">First name</label>
+		<input asp-for="FirstName" type="text" class="form-control" />
+		<span asp-validation-for="FirstName" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="LastName">Last name</label>
+		<input asp-for="LastName" type="text" class="form-control" />
+		<span asp-validation-for="LastName" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Email">Your email address</label>
+		<input asp-for="Email" type="email" class="form-control" />
+		<span asp-validation-for="Email" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Password">Password</label>
+		<input asp-for="Password" type="password" class="form-control" />
+		<span asp-validation-for="Password" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="ConfirmPassword">Confirm Password</label>
+		<input asp-for="ConfirmPassword" type="password" class="form-control" />
+		<span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Address1">Address1</label>
+		<input asp-for="Address1" type="text" class="form-control" />
+		<span asp-validation-for="Address1" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Address2">Address2</label>
+		<input asp-for="Address2" type="text" class="form-control" />
+		<span asp-validation-for="Address2" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Address3">Address3</label>
+		<input asp-for="Address3" type="text" class="form-control" />
+		<span asp-validation-for="Address3" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="City">City</label>
+		<input asp-for="City" type="text" class="form-control" />
+		<span asp-validation-for="City" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="County">County</label>
+		<input asp-for="County" type="text" class="form-control" />
+		<span asp-validation-for="County" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="Country">Country</label>
+		<input asp-for="Country" type="text" class="form-control" />
+		<span asp-validation-for="Country" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="ContactNumber">Contact Number</label>
+		<input asp-for="ContactNumber" type="text" class="form-control" />
+		<span asp-validation-for="ContactNumber" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="DateOfBirth">Date of Birth</label>
+		<input asp-for="DateOfBirth" type="date" class="form-control" />
+		<span asp-validation-for="DateOfBirth" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="GenderId">Gender</label>
+		<select asp-for="GenderId" class="form-control">
+
+			<option value="">Select Gender</option>
+			<option value="1">Female</option>
+			<option value="2">Male</option>
+
+		</select>
+		<span asp-validation-for="GenderId" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group">
+
+		<label asp-for="RoleName">Role Name</label>
+		<input asp-for="RoleName" type="text" class="form-control" />
+		<span asp-validation-for="RoleName" class="text-danger"></span>
+
+	</div>
+
+	<div class="form-group right-row">
+		<button type="submit" class="btn btn-primary">Register</button>
+	</div>
+
+	<div class="form-group">
+		<a class="btn btn-secondary" href="@Url.Action("Login", "Account", new { returnUrl = Model.ReturnUrl } )">Back</a>
+	</div>
+
+</form>
+
+@section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
+}

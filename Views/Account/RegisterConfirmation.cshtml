@@ -1,0 +1,19 @@
+﻿@model IdentityServer.ViewModels.Account.ResetPasswordConfirmationViewModel
+
+<div class="main-header"></div>
+
+<form class="identity-form">
+
+	<h1 class="mb-3">Registration confirmation</h1>
+
+	<div class="title-divider"></div>
+
+	<div class="form-group">
+		<label>Please check your email to confirm your account.</label>
+	</div>
+
+	<div class="form-group right-row">
+		<a class="btn btn-primary" href="@Url.Action("Login", "Account", new { returnUrl = Model.ReturnUrl } )">Login</a>
+	</div>
+
+</form>

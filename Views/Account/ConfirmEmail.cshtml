@@ -1,0 +1,27 @@
+﻿@model IdentityServer.ViewModels.Account.EmailConfirmedViewModel
+
+<div class="main-header"></div>
+
+<form class="identity-form">
+
+	<div class="page-header logged-out">
+
+		<h1 class="mb-3">@Model.ConfirmationMessage</h1>
+
+		<div class="title-divider"></div>
+
+		@if ( Model.RedirectUri != null )
+		{
+			<div class="form-group right-row">
+				<a class="btn btn-primary" href="@Url.Action("Login", "Account", new { returnUrl = Model.RedirectUri } )">Login</a>
+			</div>
+		}
+
+		@if ( Model.SignOutIframeUrl != null )
+		{
+			<iframe width="0" height="0" class="signout" src="@Model.SignOutIframeUrl"></iframe>
+		}
+
+	</div>
+
+</form>
