@@ -2,17 +2,13 @@
 
 @if ( Model.EnableLocalLogin )
 {
-	<div class="main-header"></div>
-
-	<form class="identity-form" asp-route="Login">
+	<form asp-route="Login">
 
 		<input type="hidden" asp-for="ReturnUrl" />
 
 		<h1 class="mb-3">Sign in to @Model.ApplicationName</h1>
 
-		<div class="title-divider"></div>
-
-		<div class="form-group">
+		<div class="form-group col-lg-2">
 
 			<label for="inputEmail">Email address</label>
 			<input type="email" id="inputEmail" class="form-control" asp-for="Username" required autofocus>
@@ -20,7 +16,7 @@
 
 		</div>
 
-		<div class="form-group">
+		<div class="form-group col-lg-2">
 
 			<label for="inputPassword">Password</label>
 			<input type="password" id="inputPassword" class="form-control" asp-for="Password" required>
@@ -28,7 +24,7 @@
 
 		</div>
 
-		<div class="form-group button-row">
+		<div class="form-group button-row col-lg-2">
 
 			@if ( Model.AllowRememberLogin )
 			{
@@ -38,18 +34,18 @@
 			}
 
 			<div class="right-button">
-				<button class="btn btn-primary" type="submit" name="button" value="login">Continue</button>
+				<button class="btn btn-primary" type="submit" name="button" value="login">Login</button>
 			</div>
 
 		</div>
 
-		<div class="form-group">
+		<div class="form-group col-lg-2">
 			<a class="btn btn-secondary" href="@Url.Action("ForgottenPassword", "Account", new { returnUrl = Model.ReturnUrl} )">Reset Password</a>
 		</div>
 
 		@if ( Model.EnableRegistration )
 		{
-			<div class="form-group">
+			<div class="form-group col-lg-2">
 				<a class="btn btn-info" href="@Url.Action("Register", "Account", new { returnUrl = Model.ReturnUrl} )">Create Account</a>
 			</div>
 		}

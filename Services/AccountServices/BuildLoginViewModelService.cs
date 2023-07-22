@@ -64,8 +64,7 @@ namespace IdentityServer.Services.AccountServices
 			if (!string.IsNullOrEmpty(context?.RedirectUri) &&
 				context.RedirectUri.StartsWith(_portalSite))
 			{
-				// Commented out for now. Will see how it goes.
-				// enableRegistration = true;
+				enableRegistration = true;
 			}
 
 			if (!string.IsNullOrEmpty(context?.RedirectUri))
