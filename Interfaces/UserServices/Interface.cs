@@ -11,7 +11,7 @@ namespace IdentityServer.Interfaces.UserServices
 		/// Gets all users from the repository
 		/// </summary>
 		/// <returns></returns>
-		Task<IEnumerable<UserDTO>> GetAllUsers();
+		Task<IEnumerable<UserAdminDTO>> GetAllUsers();
 
 		/// <summary>
 		/// Retrieves all users having specified roles

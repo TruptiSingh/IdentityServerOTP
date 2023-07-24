@@ -1,8 +1,10 @@
 ﻿using IdentityServer.DTOs.Roles;
 using IdentityServer.DTOs.Users;
 using IdentityServer.Interfaces.UserServices;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityServer.ApiControllers
@@ -22,7 +24,7 @@ namespace IdentityServer.ApiControllers
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+		public async Task<ActionResult<IEnumerable<UserAdminDTO>>> GetAllUsers()
 		{
 			try
 			{
