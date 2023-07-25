@@ -16,11 +16,15 @@ namespace IdentityServer.ApiControllers
 	{
 		private readonly IGetAllUsersService _getAllUsersService;
 		private readonly ISetUserAccessRightsService _setUserAdminRightsService;
+		private readonly ISetUserActiveStatusService _setUserActiveStatusService;
 
-		public UsersController(IGetAllUsersService getAllUsersService, ISetUserAccessRightsService setUserAccessRightsService)
+		public UsersController(IGetAllUsersService getAllUsersService,
+			ISetUserAccessRightsService setUserAccessRightsService,
+			ISetUserActiveStatusService setUserActiveStatusService)
 		{
 			_getAllUsersService = getAllUsersService;
 			_setUserAdminRightsService = setUserAccessRightsService;
+			_setUserActiveStatusService = setUserActiveStatusService;
 		}
 
 		[HttpGet]
@@ -75,6 +79,21 @@ namespace IdentityServer.ApiControllers
 			{
 				_setUserAdminRightsService.SetUserAccessRights(setUserAccessDTO.UserId,
 					setUserAccessDTO.RoleName, setUserAccessDTO.SetAccess);
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPut("UserActiveStatus")]
+		public async Task<ActionResult> SetUserActiveStatus(ToggleUserActiveStatusDTO toggleUserActiveStatusDTO)
+		{
+			try
+			{
+				await _setUserActiveStatusService.SetUserActiveStatusAsync(toggleUserActiveStatusDTO);
 
 				return Ok();
 			}

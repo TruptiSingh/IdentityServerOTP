@@ -1,10 +1,13 @@
-﻿using IdentityServer.Data.Identity;
-using IdentityServer.Interfaces.AccountServices;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.WebUtilities;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Web;
+
+using IdentityServer.Data.Identity;
+using IdentityServer.Interfaces.AccountServices;
+
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace IdentityServer.Services.AccountServices
 {
@@ -18,6 +21,8 @@ namespace IdentityServer.Services.AccountServices
 		private readonly UserManager<AppUser> _userManager;
 
 		private readonly string _identityServerSite;
+
+		private readonly string _sendGridSmtpKey;
 
 		#endregion
 
@@ -35,6 +40,8 @@ namespace IdentityServer.Services.AccountServices
 			_userManager = userManager;
 
 			_identityServerSite = configuration ["IdentityServerSite"];
+
+			_sendGridSmtpKey = configuration ["SendGridSmtpKey"];
 		}
 
 		#endregion
@@ -60,13 +67,25 @@ namespace IdentityServer.Services.AccountServices
 
 			var msg = new MailMessage
 			{
-				From = new MailAddress(""),
-				Subject = "Email Confirmation"
+				From = new MailAddress("noreply@otpportal.com"),
+				IsBodyHtml = true,
+				Subject = "Confirm your email"
 			};
 
-			msg.To.Add(new MailAddress(""));
+			msg.To.Add(new MailAddress(user.Email));
 
 			msg.Body = $"Hello {user.FirstName} {user.LastName}. Please click {confirmationLink} to confirm your email address";
+
+			SmtpClient smtpClient = new()
+			{
+				Credentials = new NetworkCredential("apikey", _sendGridSmtpKey),
+				DeliveryMethod = SmtpDeliveryMethod.Network,
+				Host = "smtp.sendgrid.net",
+				Port = 587,
+				EnableSsl = false
+			};
+
+			smtpClient.Send(msg);
 		}
 
 		#endregion

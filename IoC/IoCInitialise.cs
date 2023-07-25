@@ -3,6 +3,7 @@ using IdentityServer.Interfaces.UserServices;
 using IdentityServer.Services.AccountServices;
 using IdentityServer.Services.UserSerices;
 using IdentityServer.Services.UserServices;
+
 using IdentityServer4.Services;
 
 namespace IdentityServer.IoC
@@ -22,6 +23,7 @@ namespace IdentityServer.IoC
 			services.AddTransient<ISetUserAccessRightsService, SetUserAccessRightsService>();
 			services.AddTransient<IGetAllUsersService, GetAllUsersService>();
 			services.AddTransient<IProfileService, IdentityClaimsProfileService>();
+			services.AddTransient<ISetUserActiveStatusService, SetUserActiveStatusService>();
 		}
 	}
 }
