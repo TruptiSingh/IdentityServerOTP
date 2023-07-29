@@ -25,7 +25,7 @@
 		/// <summary>
 		/// Flag indicating whether logout cofirmation should be shown or not
 		/// </summary>
-		public static bool ShowLogoutPrompt = false;
+		public static bool ShowLogoutPrompt = true;
 
 		/// <summary>
 		/// Flag indicating whether user should be redirected to another Url or not

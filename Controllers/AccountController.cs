@@ -1,18 +1,22 @@
-﻿using IdentityServer.Attributes;
+﻿using System.Text;
+
+using IdentityServer.Attributes;
 using IdentityServer.Data.Identity;
+using IdentityServer.DTOs.Enums;
 using IdentityServer.Interfaces.AccountServices;
 using IdentityServer.ViewModels.Account;
+
 using IdentityServer4.Events;
 using IdentityServer4.Extensions;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 
 namespace IdentityServer.Controllers
 {
@@ -251,6 +255,9 @@ namespace IdentityServer.Controllers
 				AddEmailPasswordErrors(result);
 				return View(model);
 			}
+
+			var roleName = Enum.GetName(typeof(Roles), model.RoleId);
+			model.RoleName = roleName;
 
 			await _userManager.AddToRoleAsync(user, model.RoleName);
 			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("userName", user.UserName));

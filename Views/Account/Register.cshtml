@@ -136,9 +136,15 @@
 
 			<div class="form-group">
 
-				<label asp-for="RoleName">Role Name</label>
-				<input asp-for="RoleName" type="text" class="form-control" />
-				<span asp-validation-for="RoleName" class="text-danger"></span>
+				<label asp-for="RoleId">Register As</label>
+				<select asp-for="RoleId" class="form-control">
+
+					<option value="">Select Register As</option>
+					<option value="2">Tutor</option>
+					<option value="3">Student</option>
+
+				</select>
+				<span asp-validation-for="RoleId" class="text-danger"></span>
 
 			</div>
 

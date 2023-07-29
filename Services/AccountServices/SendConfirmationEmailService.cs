@@ -67,7 +67,7 @@ namespace IdentityServer.Services.AccountServices
 
 			var msg = new MailMessage
 			{
-				From = new MailAddress("noreply@otpportal.com"),
+				From = new MailAddress("deo.sushrut@gmail.com"),
 				IsBodyHtml = true,
 				Subject = "Confirm your email"
 			};

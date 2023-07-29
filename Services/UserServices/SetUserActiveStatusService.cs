@@ -4,7 +4,7 @@ using IdentityServer.Interfaces.UserServices;
 
 using Microsoft.AspNetCore.Identity;
 
-namespace IdentityServer.Services.UserSerices
+namespace IdentityServer.Services.UserServices
 {
 	/// <summary>
 	/// Implementation of <see cref="ISetUserActiveStatusService"/>
