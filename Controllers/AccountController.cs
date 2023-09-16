@@ -264,6 +264,7 @@ namespace IdentityServer.Controllers
 			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("name", string.Concat(user.FirstName, ' ', user.LastName)));
 			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("email", user.Email));
 			await _userManager.AddClaimAsync(user, new System.Security.Claims.Claim("role", model.RoleName));
+
 			await _sendConfirmationEmailService.SendConfirmationEmail(user, model.ReturnUrl);
 
 			return RedirectToAction(nameof(RegisterConfirmation), "Account",
@@ -334,7 +335,7 @@ namespace IdentityServer.Controllers
 			if (user == null)
 			{
 				// Don't reveal that the user does not exist
-				return RedirectToAction(nameof(AccountController.ResetPasswordConfirmation), "Account");
+				return RedirectToAction(nameof(ResetPasswordConfirmation), "Account");
 			}
 
 			var codeDecodedBytes = WebEncoders.Base64UrlDecode(model.Code);

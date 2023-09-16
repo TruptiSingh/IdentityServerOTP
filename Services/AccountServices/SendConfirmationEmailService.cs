@@ -74,7 +74,8 @@ namespace IdentityServer.Services.AccountServices
 
 			msg.To.Add(new MailAddress(user.Email));
 
-			msg.Body = $"Hello {user.FirstName} {user.LastName}. Please click {confirmationLink} to confirm your email address";
+			msg.Body = $"<html><body>Hello {user.FirstName} {user.LastName}. Please click " +
+				$"<a href=\"{confirmationLink}\">here</a> to confirm your email address</body></html>";
 
 			SmtpClient smtpClient = new()
 			{
