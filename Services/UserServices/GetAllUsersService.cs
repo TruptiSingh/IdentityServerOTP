@@ -1,9 +1,13 @@
-﻿using IdentityServer.Data.Identity;
+﻿using IdentityModel;
+
+using IdentityServer.Constants;
+using IdentityServer.Data.Identity;
 using IdentityServer.DTOs.Users;
 using IdentityServer.Interfaces.UserServices;
+
 using Microsoft.AspNetCore.Identity;
 
-namespace IdentityServer.Services.UserSerices
+namespace IdentityServer.Services.UserServices
 {
 	/// <summary>
 	/// Implementation of <see cref="IGetAllUsersService"/>
@@ -42,39 +46,30 @@ namespace IdentityServer.Services.UserSerices
 		/// Gets all users from the repository
 		/// </summary>
 		/// <returns></returns>
-		public async Task<IEnumerable<UserDTO>> GetAllUsers()
+		public async Task<IEnumerable<UserAdminDTO>> GetAllUsers()
 		{
 			try
 			{
-				var allUsers = new List<UserDTO>();
+				var allUsers = new List<UserAdminDTO>();
 
 				foreach (var user in _userManager.Users.ToList())
 				{
 					var principal = await _claimsFactory.CreateAsync(user);
 
-					var role = _appIdentityDbContext.UserRoles
-					.Join(_appIdentityDbContext.Users, userRole => userRole.UserId, user => user.Id,
-					(userRole, user) => new { userRole, user })
-					.Join(_appIdentityDbContext.Roles, userRoleUser => userRoleUser.userRole.RoleId, role => role.Id,
-					(userRolesUser, role) => new UserDTO
+					allUsers.Add(new UserAdminDTO
 					{
-
 						Id = user.Id,
 						FirstName = user.FirstName,
 						LastName = user.LastName,
 						Username = user.UserName,
-						Address1 = user.Address1,
-						Address2 = user.Address2,
-						Address3 = user.Address3,
-						City = user.City,
-						Country = user.Country,
-						County = user.County,
-						DateOfBirth = user.DateOfBirth,
-						Email = user.Email,
-						GenderId = user.GenderId,
-						RoleId = role.Id,
-						RoleName = role.Name,
-					}).ToList();
+						IsAdmin = principal.Claims.Any(x => x.Type == JwtClaimTypes.Role &&
+							 x.Value == Roles.Administrator),
+						IsTutor = principal.Claims.Any(x => x.Type == JwtClaimTypes.Role &&
+							 x.Value == Roles.Tutor),
+						IsStudent = principal.Claims.Any(x => x.Type == JwtClaimTypes.Role &&
+							 x.Value == Roles.Student),
+						IsActive = !(user.LockoutEnd != null)
+					});
 				}
 
 				return allUsers.OrderBy(x => x.Username);

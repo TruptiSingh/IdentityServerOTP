@@ -1,5 +1,6 @@
 ﻿using IdentityServer.Constants;
 using IdentityServer.Data.Identity;
+
 using Microsoft.AspNetCore.Identity;
 
 namespace IdentityServer.Configuration
@@ -52,8 +53,12 @@ namespace IdentityServer.Configuration
 					UserName = "ts322@student.london.ac.uk",
 					FirstName = "Trupti",
 					LastName = "Singh",
+					DateOfBirth = new DateTime(1990, 01, 01),
 					Email = "ts322@student.london.ac.uk",
 					GenderId = 1,
+					Address1 = "Address 1",
+					Address2 = "Address 2",
+					Address3 = "Address 3",
 					City = "Birmingham",
 					County = "West Midlands",
 					Country = "UK",

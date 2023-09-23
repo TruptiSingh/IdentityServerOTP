@@ -1,10 +1,13 @@
-﻿using IdentityModel;
+﻿using System.Security.Claims;
+
+using IdentityModel;
+
 using IdentityServer.Configuration;
 using IdentityServer.Interfaces.AccountServices;
 using IdentityServer.ViewModels.Account;
+
 using IdentityServer4.Extensions;
 using IdentityServer4.Services;
-using System.Security.Claims;
 
 namespace IdentityServer.Services.AccountServices
 {
@@ -49,7 +52,7 @@ namespace IdentityServer.Services.AccountServices
 			var vm = new LoggedOutViewModel
 			{
 				AutomaticRedirectAfterSignOut = AccountOptions.AutomaticRedirectAfterSignOut,
-				PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
+				PostLogoutRedirectUri = logout?.PostLogoutRedirectUri ?? "http://localhost:4200",
 				ClientName = string.IsNullOrEmpty(logout?.ClientName) ? logout?.ClientId : logout?.ClientName,
 				SignOutIframeUrl = logout?.SignOutIFrameUrl,
 				LogoutId = logoutId

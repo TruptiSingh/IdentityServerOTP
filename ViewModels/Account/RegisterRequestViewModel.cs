@@ -60,6 +60,8 @@ namespace IdentityServer.ViewModels.Account
 		public string ConfirmPassword { get; set; }
 
 		[Required(ErrorMessage = "Role is required")]
+		public int RoleId { get; set; }
+
 		public string RoleName { get; set; }
 	}
 }

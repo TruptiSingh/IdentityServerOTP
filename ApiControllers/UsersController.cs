@@ -1,8 +1,10 @@
 ﻿using IdentityServer.DTOs.Roles;
 using IdentityServer.DTOs.Users;
 using IdentityServer.Interfaces.UserServices;
+
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+
 using static IdentityServer4.IdentityServerConstants;
 
 namespace IdentityServer.ApiControllers
@@ -14,15 +16,19 @@ namespace IdentityServer.ApiControllers
 	{
 		private readonly IGetAllUsersService _getAllUsersService;
 		private readonly ISetUserAccessRightsService _setUserAdminRightsService;
+		private readonly ISetUserActiveStatusService _setUserActiveStatusService;
 
-		public UsersController(IGetAllUsersService getAllUsersService, ISetUserAccessRightsService setUserAccessRightsService)
+		public UsersController(IGetAllUsersService getAllUsersService,
+			ISetUserAccessRightsService setUserAccessRightsService,
+			ISetUserActiveStatusService setUserActiveStatusService)
 		{
 			_getAllUsersService = getAllUsersService;
 			_setUserAdminRightsService = setUserAccessRightsService;
+			_setUserActiveStatusService = setUserActiveStatusService;
 		}
 
 		[HttpGet]
-		public async Task<ActionResult<IEnumerable<UserDTO>>> GetAllUsers()
+		public async Task<ActionResult<IEnumerable<UserAdminDTO>>> GetAllUsers()
 		{
 			try
 			{
@@ -73,6 +79,21 @@ namespace IdentityServer.ApiControllers
 			{
 				_setUserAdminRightsService.SetUserAccessRights(setUserAccessDTO.UserId,
 					setUserAccessDTO.RoleName, setUserAccessDTO.SetAccess);
+
+				return Ok();
+			}
+			catch (Exception ex)
+			{
+				return BadRequest(ex.Message);
+			}
+		}
+
+		[HttpPut("UserActiveStatus")]
+		public async Task<ActionResult> SetUserActiveStatus(ToggleUserActiveStatusDTO toggleUserActiveStatusDTO)
+		{
+			try
+			{
+				await _setUserActiveStatusService.SetUserActiveStatusAsync(toggleUserActiveStatusDTO);
 
 				return Ok();
 			}
